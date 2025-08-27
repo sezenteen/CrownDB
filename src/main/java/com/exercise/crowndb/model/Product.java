@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
+
 @Getter
 @Setter
 @Entity
@@ -45,6 +46,10 @@ public class Product {
     @Column(name = "allowCityTax")
     private Boolean allowCityTax;
 
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "measureUnitID", nullable = false)
+    private Measureunit measureUnitID;
+
     @Size(max = 50)
     @Column(name = "CustomCode", length = 50, columnDefinition = "NVARCHAR(100)")
     private String customCode;
@@ -70,7 +75,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long id, String name, String shortName, String barcode, Double price, Category categoryID, Boolean allowCityTax, String customCode, String imagePath, Integer packageCount, String mainCategoryCode, Boolean isVATFree) {
+    public Product(Long id, String name, String shortName, String barcode, Double price, Category categoryID, Boolean allowCityTax, Measureunit measureUnitID, String customCode, String imagePath, Integer packageCount, String mainCategoryCode, Boolean isVATFree) {
         this.id = id;
         this.name = name;
         this.shortName = shortName;
@@ -78,6 +83,7 @@ public class Product {
         this.price = price;
         this.categoryID = categoryID;
         this.allowCityTax = allowCityTax;
+        this.measureUnitID = measureUnitID;
         this.customCode = customCode;
         this.imagePath = imagePath;
         this.packageCount = packageCount;
