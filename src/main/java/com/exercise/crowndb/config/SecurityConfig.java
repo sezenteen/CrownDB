@@ -31,11 +31,15 @@ public class SecurityConfig {
                         // Users (admin only)
                         .requestMatchers("/api/user/**").hasRole("ADMIN")
 
+                        // Carts
+                        .requestMatchers(HttpMethod.GET, "/api/carts/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/carts/**").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/api/carts/**").authenticated()
+
                         // everything else
                         .anyRequest().authenticated()
                 )
-
-                .httpBasic(customizer -> {}); // HTTP Basic (replace with JWT for real APIs)
+                .httpBasic(customizer -> {}); // HTTP Basic (use JWT for real APIs)
 
         return http.build();
     }
